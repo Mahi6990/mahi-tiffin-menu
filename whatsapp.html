@@ -126,3 +126,54 @@ Total: ₹0
 <button class="order">
 🟢 Order on WhatsApp
 </button>
+<script>
+let total = 0;
+
+document.querySelectorAll(".item").forEach(item => {
+  let qty = 0;
+
+  const price = parseInt(item.dataset.price);
+  const qtyBox = item.querySelector(".qty");
+  const plus = item.querySelector(".plus");
+  const minus = item.querySelector(".minus");
+
+  plus.onclick = () => {
+    qty++;
+    qtyBox.innerText = qty;
+    updateTotal();
+  };
+
+  minus.onclick = () => {
+    if (qty > 0) {
+      qty--;
+      qtyBox.innerText = qty;
+      updateTotal();
+    }
+  };
+
+  function updateTotal() {
+    total = 0;
+    let message = "🍱 *Mahi Tiffin Order*%0A%0A";
+
+    document.querySelectorAll(".item").forEach(i => {
+      const q = parseInt(i.querySelector(".qty").innerText);
+      const p = parseInt(i.dataset.price);
+
+      if (q > 0) {
+        total += q * p;
+        message += "✅ " + i.dataset.name + " x " + q + " = ₹" + (q * p) + "%0A";
+      }
+    });
+
+    document.querySelector(".total").innerHTML = "Total: ₹" + total;
+
+    message += "%0A💰 Total: ₹" + total;
+
+    document.querySelector(".order").onclick = () => {
+      window.open("https://wa.me/919680042705?text=" + message);
+    };
+  }
+});
+</script>  
+  </body>
+</html>
