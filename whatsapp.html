@@ -1,15 +1,62 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Mahi Tiffin Order</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahi Tiffin Centre - Order Online</title>
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f8f8f8;
+margin:0;
+padding:20px;
+}
+h1{
+text-align:center;
+color:#8B4513;
+}
+.card{
+background:#fff;
+padding:15px;
+margin:10px 0;
+border-radius:10px;
+box-shadow:0 2px 5px #ccc;
+}
+button{
+background:#25D366;
+color:#fff;
+padding:10px 20px;
+border:none;
+border-radius:8px;
+font-size:18px;
+}
+</style>
 </head>
 <body>
-<h1>Mahi Tiffin Centre</h1>
-<p>Welcome to Order Online</p>
 
-<a href="https://wa.me/919680042705?text=Hello%20Mahi%20Tiffin%20Center,%20I%20want%20to%20place%20an%20order.">
-Order on WhatsApp
-</a>
+<h1>Mahi Tiffin Centre</h1>
+
+<div class="card">
+<h3>Dal Rice - ₹145</h3>
+<button onclick="order('Dal Rice ₹145')">Order</button>
+</div>
+
+<div class="card">
+<h3>Kadhi Rice - ₹150</h3>
+<button onclick="order('Kadhi Rice ₹150')">Order</button>
+</div>
+
+<div class="card">
+<h3>Mahi Special Thali - ₹220</h3>
+<button onclick="order('Mahi Special Thali ₹220')">Order</button>
+</div>
+
+<script>
+function order(item){
+window.location.href="https://wa.me/919680042705?text=Hello%20Mahi%20Tiffin%20Centre,%20I%20want%20to%20order:%20"+encodeURIComponent(item);
+}
+</script>
 
 </body>
 </html>
