@@ -1,62 +1,100 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mahi Tiffin Centre - Order Online</title>
+
+<title>Mahi Tiffin Centre</title>
+
 <style>
+
 body{
 font-family:Arial,sans-serif;
-background:#f8f8f8;
+background:#f4f4f4;
 margin:0;
 padding:20px;
 }
+
 h1{
 text-align:center;
-color:#8B4513;
+color:#7b3f00;
 }
+
 .card{
 background:#fff;
 padding:15px;
-margin:10px 0;
-border-radius:10px;
-box-shadow:0 2px 5px #ccc;
+margin:15px 0;
+border-radius:15px;
+box-shadow:0 3px 10px rgba(0,0,0,.15);
 }
+
+.price{
+font-size:24px;
+font-weight:bold;
+}
+
+.controls{
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:10px;
+}
+
 button{
-background:#25D366;
-color:#fff;
-padding:10px 20px;
+padding:10px 15px;
+font-size:20px;
 border:none;
 border-radius:8px;
-font-size:18px;
+cursor:pointer;
 }
+
+.plus{
+background:green;
+color:white;
+}
+
+.minus{
+background:red;
+color:white;
+}
+
+.order{
+background:#25D366;
+color:white;
+font-size:18px;
+width:100%;
+margin-top:15px;
+padding:15px;
+}
+
+.qty{
+font-size:22px;
+font-weight:bold;
+width:30px;
+text-align:center;
+}
+
+.total{
+font-size:26px;
+font-weight:bold;
+text-align:center;
+margin-top:20px;
+}
+
 </style>
 </head>
+
 <body>
 
 <h1>Mahi Tiffin Centre</h1>
 
 <div class="card">
-<h3>Dal Rice - ₹145</h3>
-<button onclick="order('Dal Rice ₹145')">Order</button>
+<h2>Dal Rice</h2>
+<div class="price">₹145</div>
+
+<div class="controls">
+<button class="minus">-</button>
+<div class="qty">0</div>
+<button class="plus">+</button>
 </div>
-
-<div class="card">
-<h3>Kadhi Rice - ₹150</h3>
-<button onclick="order('Kadhi Rice ₹150')">Order</button>
 </div>
-
-<div class="card">
-<h3>Mahi Special Thali - ₹220</h3>
-<button onclick="order('Mahi Special Thali ₹220')">Order</button>
-</div>
-
-<script>
-function order(item){
-window.location.href="https://wa.me/919680042705?text=Hello%20Mahi%20Tiffin%20Centre,%20I%20want%20to%20order:%20"+encodeURIComponent(item);
-}
-</script>
-
-</body>
-</html>
