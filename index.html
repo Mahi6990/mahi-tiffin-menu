@@ -3,48 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Mahi Tiffin Center & Restaurant</title>
 
 <style>
 body{
-font-family:Arial,sans-serif;
-margin:0;
-background:#f5f5f5;
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#f5f5f5;
+  color:#222;
 }
+
 header{
-background:#0b7a3b;
-color:white;
-text-align:center;
-padding:20px;
+  background:#0b7a3b;
+  color:white;
+  text-align:center;
+  padding:20px 10px;
 }
+
 .card{
-background:white;
-margin:15px;
-padding:15px;
-border-radius:10px;
-box-shadow:0 2px 8px rgba(0,0,0,.1);
+  background:white;
+  margin:15px;
+  padding:15px;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
 }
+
 .btn{
-display:block;
-text-align:center;
-padding:12px;
-margin:10px 0;
-text-decoration:none;
-border-radius:8px;
-font-weight:bold;
-color:white;
+  display:block;
+  text-align:center;
+  padding:12px;
+  margin:10px 0;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+  color:white;
 }
-.whatsapp{background:#25D366;}
-.call{background:#ff6600;}
+
+.whatsapp{
+  background:#25D366;
+}
+
+.call{
+  background:#ff6600;
+}
+
+.upi{
+  background:#673ab7;
+}
+
 .menu{
-display:flex;
-justify-content:space-between;
-padding:10px 0;
-border-bottom:1px solid #ddd;
+  padding:12px 0;
+  border-bottom:1px solid #ddd;
 }
+
+.item-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
 .price{
-color:#0b7a3b;
-font-weight:bold;
+  color:#0b7a3b;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.qty{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  margin-top:8px;
+}
+
+.qty button{
+  width:36px;
+  height:36px;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.qty span{
+  width:45px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.total{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  margin:20px 0;
+}
+
+.order{
+  width:100%;
+  padding:15px;
+  background:#25D366;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:bold;
 }
 </style>
 </head>
@@ -57,6 +117,7 @@ font-weight:bold;
 </header>
 
 <div class="card">
+
 <h2>📲 Order Now</h2>
 
 <a class="btn whatsapp"
@@ -65,41 +126,30 @@ Order on WhatsApp
 </a>
 
 <a class="btn call"
-href="tel:+919783718102">
+href="tel:+919738718102">
 Call Now
 </a>
-</div>
-<a class="btn" href="upi://pay?pa=6378850450@ibl&pn=Mahi%20Tiffin%20Centre&cu=INR">
+
+<a class="btn upi"
+href="upi://pay?pa=6378850450@ibl&pn=Mahi%20Tiffin%20Centre&cu=INR">
 💳 Pay Online (UPI)
 </a>
+
+</div>
+
 <div class="card">
 
-<h2>🍽️ Our Menu</h2>
+<h2>🍽️ Full Menu</h2>
 
-<div class="menu">
-<span>Veg Thali</span>
-<span class="price">₹135</span>
+<div id="menu"></div>
+
+<div class="total">
+Total: ₹<span id="total">0</span>
 </div>
 
-<div class="menu">
-<span>Dal Fry</span>
-<span class="price">₹120</span>
-</div>
-
-<div class="menu">
-<span>Paneer Butter Masala</span>
-<span class="price">₹220</span>
-</div>
-
-<div class="menu">
-<span>Aloo Paratha</span>
-<span class="price">₹80</span>
-</div>
-
-<div class="menu">
-<span>Butter Roti</span>
-<span class="price">₹15</span>
-</div>
+<button class="order" onclick="sendOrder()">
+📲 Order Selected Items on WhatsApp
+</button>
 
 </div>
 
@@ -107,6 +157,165 @@ Call Now
 <h2>🎉 Offer</h2>
 <p><b>Flat 25% OFF</b> on selected items.</p>
 </div>
+
+<script>
+
+const items = [
+["Poha",105],
+["Sandwich 1 pis",110],
+["Maggi 300ml",120],
+["Upma 300ml",80],
+["Aloo paratha 1 pis",105],
+["Onion paratha 1 pis",105],
+["Butter Maggi 300ml",140],
+["Hakka Nutella 300ml",140],
+["Gobhi paratha 1 pis",105],
+["Tawa Roti",15],
+["Butter Roti",25],
+["Ghee Roti",30],
+["Plane paratha",25],
+["Fried aloo + 5 Puri + pickle",140],
+["Aloo bhaji + 5 Puri + pickle",140],
+["Dal + 5 Puri + pickle",155],
+["Baingan Masala + 4 Butter Roti",165],
+["Fry Bhindi + 4 Butter Roti",165],
+["Jeera aloo + 4 Butter Roti",155],
+["Matar Paneer + 4 Butter Roti",165],
+["Palak Paneer + 4 Butter Roti",165],
+["Kedaai Paneer + 4 paratha",165],
+["Matar Paneer 500 ml",220],
+["Palak Paneer 500ml",220],
+["Kadaai Paneer 500ml",240],
+["Jeera Aloo 500ml",160],
+["Aloo bhaji 500ml",160],
+["Matar tamater 500ml",160],
+["Sev Tamatar 500ml",160],
+["Besan gatta 500ml",160],
+["Aloo Onion 500ml",170],
+["Loki 500ml",160],
+["Keraala 500ml",150],
+["Baigan 500ml",165],
+["Fried Bhindi 500ml",165],
+["Dehi onion fried 500ml",170],
+["Thali matar Paneer + dal + rice + 5 Roti + sweet",199],
+["Jain Thali matar Paneer + Dal + Rice + 5 Roti + curd",180],
+["Student Thali veg + dal + rice + 5 roti",145],
+["Dal + rice",145],
+["Kadi + Rice",150],
+["Matar Paneer + dal + rice + sweet + pickle + veg",220],
+["Feriyaali Thali 5 puri + kangni + Aloo bhaji + sabudana Khichdi + khir + chips",240],
+["Sabudana Khichdi",170],
+["Sabudana khir",245],
+["Feriyaali special dry fruits helwa",299],
+["Sabudana bade 5 pis + curd",175],
+["Aloo bhaji + kangni puri 5",199],
+["Extra & add - One salad",60],
+["Papad",20],
+["Pickle",40],
+["Gulab jamun 2 pis",60],
+["Lessi",99],
+["Resgulla 2 pis",60]
+];
+
+let quantities = new Array(items.length).fill(0);
+
+const menu = document.getElementById("menu");
+
+items.forEach((item,index)=>{
+
+  const div = document.createElement("div");
+  div.className = "menu";
+
+  div.innerHTML = `
+    <div class="item-row">
+      <span>${item[0]}</span>
+      <span class="price">₹${item[1]}</span>
+    </div>
+
+    <div class="qty">
+      <button onclick="changeQty(${index},-1)">−</button>
+      <span id="q${index}">0</span>
+      <button onclick="changeQty(${index},1)">+</button>
+    </div>
+  `;
+
+  menu.appendChild(div);
+});
+
+function changeQty(index,change){
+
+  quantities[index] += change;
+
+  if(quantities[index] < 0){
+    quantities[index] = 0;
+  }
+
+  document.getElementById("q"+index).innerText =
+    quantities[index];
+
+  calculateTotal();
+}
+
+function calculateTotal(){
+
+  let total = 0;
+
+  items.forEach((item,index)=>{
+    total += item[1] * quantities[index];
+  });
+
+  document.getElementById("total").innerText = total;
+}
+
+function sendOrder(){
+
+  let message =
+    "Hello Mahi Tiffin Center,%0A%0A" +
+    "My Order:%0A";
+
+  let total = 0;
+  let hasOrder = false;
+
+  items.forEach((item,index)=>{
+
+    if(quantities[index] > 0){
+
+      hasOrder = true;
+
+      const amount =
+        item[1] * quantities[index];
+
+      total += amount;
+
+      message +=
+        item[0] +
+        " x " +
+        quantities[index] +
+        " = ₹" +
+        amount +
+        "%0A";
+    }
+  });
+
+  if(!hasOrder){
+
+    alert("Please select at least one item.");
+
+    return;
+  }
+
+  message +=
+    "%0ATotal: ₹" +
+    total;
+
+  window.open(
+    "https://wa.me/919680042705?text=" +
+    message,
+    "_blank"
+  );
+}
+
+</script>
 
 </body>
 </html>
